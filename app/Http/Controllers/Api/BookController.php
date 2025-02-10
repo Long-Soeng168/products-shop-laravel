@@ -66,7 +66,7 @@ class BookController extends Controller
         }
 
         if ($brandId) {
-            $query->where('author_id', $brandId);
+            $query->where('brand_id', $brandId);
         }
 
         if ($publisherId) {
@@ -199,7 +199,7 @@ class BookController extends Controller
         }
 
         if ($brandId) {
-            $query->where('author_id', $brandId);
+            $query->where('brand_id', $brandId);
         }
 
         if ($publisherId) {
