@@ -85,6 +85,7 @@
                 <x-select-option wire:model='position' class="block w-full mt-1" id="position" name='pistion'>
                     <option value="top">{{ __('messages.top') }}</option>
                     <option value="bottom">{{ __('messages.bottom') }}</option>
+                    <option value="product_detail">{{ __('Product Detail (2100 x 200 pixel)') }}</option>
                 </x-select-option>
                 <x-input-error :messages="$errors->get('position')" class="mt-2" />
             </div>
