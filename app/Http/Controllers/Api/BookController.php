@@ -21,7 +21,7 @@ class BookController extends Controller
         $priceTo = $request->priceTo;
         $yearFrom = $request->yearFrom;
         $yearTo = $request->yearTo;
-        $authorId = $request->authorId;
+        $brandId = $request->brandId;
         $publisherId = $request->publisherId;
         $subCategoryId = $request->subCategoryId;
         $randomOrder = $request->randomOrder ?? 0;
@@ -65,8 +65,8 @@ class BookController extends Controller
             $query->where('year', '<=', $yearTo);
         }
 
-        if ($authorId) {
-            $query->where('author_id', $authorId);
+        if ($brandId) {
+            $query->where('author_id', $brandId);
         }
 
         if ($publisherId) {
@@ -156,7 +156,7 @@ class BookController extends Controller
         $priceTo = $request->priceTo;
         $yearFrom = $request->yearFrom;
         $yearTo = $request->yearTo;
-        $authorId = $request->authorId;
+        $brandId = $request->brandId;
         $publisherId = $request->publisherId;
         $subCategoryId = $request->subCategoryId;
         $randomOrder = $request->randomOrder ?? 0;
@@ -198,8 +198,8 @@ class BookController extends Controller
             $query->where('year', '<=', $yearTo);
         }
 
-        if ($authorId) {
-            $query->where('author_id', $authorId);
+        if ($brandId) {
+            $query->where('author_id', $brandId);
         }
 
         if ($publisherId) {
