@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\PromotionController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AboutController;
+use App\Http\Controllers\Api\BrandController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -65,6 +66,7 @@ Route::get('links', [LinkController::class, 'index']);
 Route::get('payments', [PaymentController::class, 'index']);
 Route::get('customers', [CustomerController::class, 'index']);
 Route::get('authors', [AuthorController::class, 'index']);
+Route::get('brands', [BrandController::class, 'index']);
 Route::get('footer', [FooterController::class, 'index']);
 Route::resource('news', NewsController::class);
 Route::get('news_categories', [NewsController::class, 'categories']);
