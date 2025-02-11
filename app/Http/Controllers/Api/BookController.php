@@ -33,7 +33,6 @@ class BookController extends Controller
         if ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('title', 'LIKE', '%' . $search . '%')
-                    ->orWhere('isbn', 'LIKE', '%' . $search . '%')
                     ->orWhere('year', 'LIKE', '%' . $search . '%')
                     ->orWhere('short_description', 'LIKE', '%' . $search . '%');
             });
@@ -168,7 +167,6 @@ class BookController extends Controller
         if ($search) {
             $query->where(function ($sub_query) use ($search) {
                 $sub_query->where('title', 'LIKE', '%' . $search . '%')
-                    ->orWhere('isbn', 'LIKE', '%' . $search . '%')
                     ->orWhere('year', 'LIKE', '%' . $search . '%')
                     ->orWhere('short_description', 'LIKE', '%' . $search . '%');
             });
