@@ -43,7 +43,7 @@ class OrderTableData extends Component
     }
     public function delete($id)
     {
-        $item = Link::findOrFail($id);
+        $item = Order::findOrFail($id);
         $item->delete();
 
         session()->flash('success', 'Successfully deleted!');

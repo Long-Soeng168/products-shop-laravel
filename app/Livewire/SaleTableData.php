@@ -36,7 +36,6 @@ class SaleTableData extends Component
 
     public function setFilter($value)
     {
-        $this->filter = $value;
         $this->resetPage();
     }
 
