@@ -38,7 +38,7 @@ class BrandController extends Controller
         // Apply ordering
 
         // Paginate results with the specified number per page
-        $authors = $query->paginate($perPage);
+        $authors = $query->withCount('books')->paginate($perPage);
 
         return response()->json($authors);
     }
