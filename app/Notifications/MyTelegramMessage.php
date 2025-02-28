@@ -48,7 +48,7 @@ class MyTelegramMessage extends Notification implements ShouldQueue
                     "👤 *Name:* {$this->name}\n" .
                     "📱 *Phone:* {$this->phone}\n" .
                     "💬 *Message:* {$this->message}\n"
-            )->to('-1002219528184'); // Send the image as a photo
+            )->to('-4711558680'); // Send the image as a photo
     }
 
     /**

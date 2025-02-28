@@ -32,13 +32,13 @@ use Illuminate\Support\Facades\Notification;
 Route::post('/orders', [OrderController::class, 'store']);
 
 // http://127.0.0.1:8000/api/telegram_message?name=long&phone=087678912&message=letstalk
-Route::get('/telegram_message', function(Request $request){
+Route::get('/telegram_message', function (Request $request) {
     $name = $request->name;
     $phone = $request->phone;
     $message = $request->message;
     // dd($request->all());
     try {
-        Notification::route('telegram', config('-1002219528184'))
+        Notification::route('telegram', config('-4711558680'))
             ->notify(new MyTelegramMessage($phone, $name, $message));
     } catch (\Exception $e) {
         // // Log::error('Notification failed: ' . $e->getMessage());
@@ -56,8 +56,7 @@ Route::post('/invoices', [InvoiceController::class, 'store']);
 
 Route::group([
     'middleware' => 'auth:sanctum'
-], function () {
-});
+], function () {});
 
 
 Route::get('slides', [SlideController::class, 'index']);
