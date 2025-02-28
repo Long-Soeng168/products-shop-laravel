@@ -190,7 +190,8 @@
                                 @can('delete order')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
-                                        <a wire:click="delete({{ $item->id }})"
+                                        <a wire:target="delete, save, image, file" wire:loading.attr="disabled"
+                                            wire:click="delete({{ $item->id }})"
                                             wire:confirm="Are you sure? you want to delete : {{ $item->name }}"
                                             @mouseenter="tooltip = true" @mouseleave="tooltip = false"
                                             class="text-red-600">

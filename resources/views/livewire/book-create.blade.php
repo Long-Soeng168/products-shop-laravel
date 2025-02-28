@@ -107,11 +107,21 @@
                             <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                         </div>
                     </div>
-                    <div class="">
-                        <x-input-label for="discount" :value="__('Discount')" />
-                        <x-text-input wire:model='discount' id="discount" class="block w-full mt-1" type="number"
-                            name="discount" placeholder='Example: 30%' :value="old('discount')" autocomplete="discount" />
-                        <x-input-error :messages="$errors->get('discount')" class="mt-2" />
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="">
+                            <x-input-label for="discount" :value="__('Discount')" />
+                            <x-text-input wire:model='discount' id="discount" class="block w-full mt-1"
+                                type="number" name="discount" placeholder='Example: 30%' :value="old('discount')"
+                                autocomplete="discount" />
+                            <x-input-error :messages="$errors->get('discount')" class="mt-2" />
+                        </div>
+                        <div class="">
+                            <x-input-label for="code" :value="__('Code')" />
+                            <x-text-input wire:model='code' id="code" class="block w-full mt-1" type="number"
+                                name="code" placeholder='Example: P00001' :value="old('code')"
+                                autocomplete="code" />
+                            <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                        </div>
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-input-label for="year" :value="__('Release Year')" />

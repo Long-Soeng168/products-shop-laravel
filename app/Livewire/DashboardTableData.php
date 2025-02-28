@@ -6,12 +6,14 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\BookBrand;
 use App\Models\Customer;
+use App\Models\Invoice;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\Link;
 use App\Models\News;
+use App\Models\Order;
 use App\Models\Publisher;
 use App\Models\Supplier;
 use App\Models\User;
@@ -64,21 +66,25 @@ class DashboardTableData extends Component
     public function render()
     {
 
-        $items = Book::count();
+        $products = Book::count();
         $items_with_file = Book::count();
         $brands = BookBrand::count();
         $customers = Customer::count();
         $suppliers = Supplier::count();
         $news = News::count();
+        $orders = Order::count();
         $users = User::count();
+        $sales = Invoice::count();
 
         $counts = [
-            'items' => $items ?? 0,
+            'products' => $products ?? 0,
             'items_with_file' => $items_with_file ?? 0,
             'brands' => $brands ?? 0,
             'customers' => $customers ?? 0,
             'suppliers' => $suppliers ?? 0,
             'news' => $news,
+            'orders' => $orders,
+            'sales' => $sales,
             'users' => $users,
         ];
 

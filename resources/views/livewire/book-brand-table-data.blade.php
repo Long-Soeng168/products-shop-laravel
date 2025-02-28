@@ -129,17 +129,6 @@
                             </div>
                             <div class="grid grid-cols-2 gap-4 mb-4 ">
                                 <div class="col-span-2">
-                                    <label for="ddc"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DDC
-                                        Code</label>
-                                    <input wire:key="{{ rand() }}" type="text" name="ddc"
-                                        id="ddc" wire:model='newDdc'
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="DDC Code">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4 mb-4 ">
-                                <div class="col-span-2">
                                     <label for="name"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                                     <input wire:key="{{ rand() }}" type="text" name="name"
@@ -165,7 +154,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                         Order Index
                                     </label>
-                                    <input wire:key="{{ rand() }}" type="text" name="orderIndex"
+                                    <input wire:key="{{ rand() }}" type="number" name="orderIndex"
                                         id="orderIndex" wire:model='newOrderIndex'
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Name KH">
@@ -239,7 +228,7 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </td>
                             <td>
-                                <input type="text" wire:model='order_index'
+                                <input type="number" wire:model='order_index'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </td>
                         @else
