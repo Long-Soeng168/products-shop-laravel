@@ -56,9 +56,12 @@ class SaleTableData extends Component
         if ($item->status == 1) {
             foreach ($getedProducts as $product) {
                 $book = Book::find($product->product_id);
-                $book->update([
-                    'quantity' => $book->quantity + $product->quantity,
-                ]);
+                if (!empty($book)) {
+
+                    $book->update([
+                        'quantity' => $book->quantity + $product->quantity,
+                    ]);
+                }
             }
         }
 
