@@ -10,4 +10,8 @@ class Supplier extends Model
     use HasFactory;
     protected $table = 'suppliers';
     protected $guarded = [];
+    public function category()
+    {
+        return $this->belongsTo(BookCategory::class, 'category_id', 'id');
+    }
 }

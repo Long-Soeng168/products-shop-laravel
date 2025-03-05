@@ -88,14 +88,14 @@
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
             @can('create people')
-            <x-primary-button data-modal-target="Publisher_modal" data-modal-toggle="Publisher_modal">
-                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                </svg>
-                Add Supplier
-            </x-primary-button>
+                <x-primary-button data-modal-target="Publisher_modal" data-modal-toggle="Publisher_modal">
+                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                    </svg>
+                    Add Supplier
+                </x-primary-button>
             @endcan
 
             <!-- Start Publisher modal -->
@@ -128,7 +128,7 @@
                                     <label for="name"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                                     <input wire:key="{{ rand() }}" type="text" name="name"
-                                        id="name" wire:model='newPublisherName'
+                                        id="name" wire:model='new_name'
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Name">
                                 </div>
@@ -136,10 +136,33 @@
                                 <div class="col-span-2">
                                     <label for="phone"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                                    <input wire:key="{{ rand() }}" type="text" name="phone"
-                                        id="phone" wire:model='newPublisherPhone'
+                                    <input wire:key="{{ rand() }}" type="number" name="phone"
+                                        id="phone" wire:model='new_phone'
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="phone">
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="link"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Link</label>
+                                    <input wire:key="{{ rand() }}" type="text" name="link"
+                                        id="link" wire:model='new_link'
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="link">
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="category"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                    <select id="category" wire:model='new_category_id'
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
+                                        <option wire:key="selectCate" {{ !$new_category_id ? 'selected' : '' }}
+                                            value="">Select Category</option>
+                                        @foreach ($categories as $index => $category)
+                                            <option wire:key='{{ 'selectCate' . $index - $category->id }}'
+                                                value="{{ $category->id }}">
+                                                {{ $category->name }}
+                                                {{ ' / ' . $category->name_kh }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                             </div>
@@ -184,6 +207,8 @@
                         </div>
                     </th>
                     <th scope="col" class="px-4 py-3">Phone</th>
+                    <th scope="col" class="px-4 py-3">Link</th>
+                    <th scope="col" class="px-4 py-3">Category</th>
                     <th scope="col" class="px-4 py-3">Created At</th>
                     <th scope="col" class="py-3 text-center w-[300px]">Action</th>
                 </tr>
@@ -201,7 +226,6 @@
                                 <input type="text" wire:model='name'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </td>
-
                         @else
                             <x-table-data value="{{ $item->name }}" />
                         @endif
@@ -211,10 +235,46 @@
                                 <input type="text" wire:model='phone'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </td>
+                            <td>
+                                <input type="text" wire:model='link'
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </td>
+                            <td>
+                                <select id="category" wire:model='category_id'
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option value="">Select Category</option>
+                                    @foreach ($categories as $category)
+                                        <option wire:key='{{ 'new' . $category->id }}'
+                                            {{ $category->id == $category_id ? 'selected' : '' }}
+                                            value="{{ $category->id }}">
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
                             <td></td>
                         @else
-                            <x-table-data class="capitalize" value="{{ !empty($item->phone) ? $item->phone : 'N/A' }}" />
-                            <x-table-data class="capitalize" value="{{ $item->created_at?->format('d-M-Y') ?? 'N/A' }}" />
+                            <x-table-data class="capitalize"
+                                value="{{ !empty($item->phone) ? $item->phone : 'N/A' }}" />
+                            <x-table-data>
+                                @if ($item->link)
+                                    <a href="{{ !empty($item->link) ? $item->link : '#' }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-link">
+                                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                        </svg>
+                                    </a>
+                                @else
+                                    N/A
+                                @endif
+                            </x-table-data>
+
+                            <x-table-data class="capitalize"
+                                value="{{ !empty($item->category?->name) ? $item->category?->name : 'N/A' }}" />
+                            <x-table-data class="capitalize"
+                                value="{{ $item->created_at?->format('d-M-Y') ?? 'N/A' }}" />
                         @endif
 
 
@@ -233,66 +293,65 @@
                                     </button>
                                 @else
                                     @can('delete people')
-                                    <div class="pb-1" x-data="{ tooltip: false }">
-                                        <!-- Modal toggle -->
-                                        <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
-                                            <button class="text-red-600" wire:click='delete({{ $item->id }})'
-                                                wire:confirm='Are you sure? You want to delete {{ $item->name }}'>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-trash">
-                                                    <path d="M3 6h18" />
-                                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                                        <div class="pb-1" x-data="{ tooltip: false }">
+                                            <!-- Modal toggle -->
+                                            <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                                <button class="text-red-600" wire:click='delete({{ $item->id }})'
+                                                    wire:confirm='Are you sure? You want to delete {{ $item->name }}'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-trash">
+                                                        <path d="M3 6h18" />
+                                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                                    </svg>
+                                                </button>
+                                            </div>
 
-                                        <!-- View tooltip -->
-                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0 transform scale-90"
-                                            x-transition:enter-end="opacity-100 transform scale-100"
-                                            x-transition:leave="transition ease-in duration-75"
-                                            x-transition:leave-start="opacity-100 transform scale-100"
-                                            x-transition:leave-end="opacity-0 transform scale-90"
-                                            class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                            style="display: none;">
-                                            Delete
+                                            <!-- View tooltip -->
+                                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0 transform scale-90"
+                                                x-transition:enter-end="opacity-100 transform scale-100"
+                                                x-transition:leave="transition ease-in duration-75"
+                                                x-transition:leave-start="opacity-100 transform scale-100"
+                                                x-transition:leave-end="opacity-0 transform scale-90"
+                                                class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                                style="display: none;">
+                                                Delete
+                                            </div>
                                         </div>
-                                    </div>
                                     @endcan
 
                                     @can('update people')
-                                    <div class="pb-1" x-data="{ tooltip: false }">
-                                        <!-- Modal toggle -->
-                                        <a data-modal-target="edit_Publisher_modal" data-modal-toggle="edit_Publisher_modal"
-                                            @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                            wire:click='setEdit({{ $item->id }})'>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-file-pen-line">
-                                                <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
-                                                <path d="M8 18h1" />
-                                                <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
-                                            </svg>
-                                        </a>
-                                        <!-- View tooltip -->
-                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0 transform scale-90"
-                                            x-transition:enter-end="opacity-100 transform scale-100"
-                                            x-transition:leave="transition ease-in duration-75"
-                                            x-transition:leave-start="opacity-100 transform scale-100"
-                                            x-transition:leave-end="opacity-0 transform scale-90"
-                                            class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                            style="display: none;">
-                                            Edit
+                                        <div class="pb-1" x-data="{ tooltip: false }">
+                                            <!-- Modal toggle -->
+                                            <a data-modal-target="edit_Publisher_modal"
+                                                data-modal-toggle="edit_Publisher_modal" @mouseenter="tooltip = true"
+                                                @mouseleave="tooltip = false" wire:click='setEdit({{ $item->id }})'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-file-pen-line">
+                                                    <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
+                                                    <path d="M8 18h1" />
+                                                    <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
+                                                </svg>
+                                            </a>
+                                            <!-- View tooltip -->
+                                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0 transform scale-90"
+                                                x-transition:enter-end="opacity-100 transform scale-100"
+                                                x-transition:leave="transition ease-in duration-75"
+                                                x-transition:leave-start="opacity-100 transform scale-100"
+                                                x-transition:leave-end="opacity-0 transform scale-90"
+                                                class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                                style="display: none;">
+                                                Edit
+                                            </div>
+
                                         </div>
-
-                                    </div>
                                     @endcan
-
                                 @endif
 
                             </div>

@@ -11,9 +11,15 @@ class LinkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $links = Link::orderBy("order_index","desc")->get();
+        $forProductDetail = $request->forProductDetail;
+
+        $query = Link::query();
+        if ($forProductDetail) {
+            $query->where('is_show_on_product_detail', 1);
+        }
+        $links = $query->orderBy("order_index", "desc")->get();
 
         return response()->json($links);
     }

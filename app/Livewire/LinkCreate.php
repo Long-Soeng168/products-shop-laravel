@@ -20,6 +20,7 @@ class LinkCreate extends Component
     public $name_kh = null;
     public $link = null;
     public $order_index = 0;
+    public $is_show_on_product_detail = false;
     public $description = null;
     public $description_kh = null;
 
@@ -54,19 +55,20 @@ class LinkCreate extends Component
             'name' => 'required|string|max:255',
             'name_kh' => 'required|string|max:255',
             'image' => 'required|file|max:2048',
-            'link' => 'required|url|max:255',
+            'link' => 'required|max:255',
             'order_index' => 'nullable',
+            'is_show_on_product_detail' => 'nullable',
         ]);
 
         // $validated['create_by_user_id'] = request()->user()->id;
 
         // dd($validated);
 
-        if(!empty($this->image)){
+        if (!empty($this->image)) {
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
-            $image_path = public_path('assets/images/links/'.$filename);
+            $image_path = public_path('assets/images/links/' . $filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $validated['image'] = $filename;
         }

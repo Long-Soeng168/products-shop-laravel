@@ -21,6 +21,7 @@ class LinkEdit extends Component
     public $order_index;
     public $description;
     public $description_kh;
+    public $is_show_on_product_detail;
 
     public function mount(Link $item)
     {
@@ -29,6 +30,7 @@ class LinkEdit extends Component
         $this->name_kh = $item->name_kh;
         $this->link = $item->link;
         $this->order_index = $item->order_index;
+        $this->is_show_on_product_detail = (bool) $item->is_show_on_product_detail;
     }
 
     public function updatedImage()
@@ -45,16 +47,17 @@ class LinkEdit extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'name_kh' => 'nullable|string|max:255',
-            'link' => 'required|url|max:255',
+            'link' => 'required|max:255',
             'order_index' => 'nullable',
+            'is_show_on_product_detail' => 'nullable',
         ]);
 
         // Update the existing item record
-        if(!empty($this->image)){
+        if (!empty($this->image)) {
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
-            $image_path = public_path('assets/images/links/'.$filename);
+            $image_path = public_path('assets/images/links/' . $filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $validated['image'] = $filename;
         }
@@ -68,6 +71,6 @@ class LinkEdit extends Component
 
     public function render()
     {
-        return view('livewire.link-edit');
+        return view('livewire.link-create');
     }
 }

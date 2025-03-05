@@ -64,7 +64,7 @@
             </div>
         </div>
     @endif
-    <form class="w-full"  >
+    <form class="w-full">
         @csrf
         <div class="grid mb-5 lg:grid-cols-2 lg:gap-6">
             <!-- Start Name -->
@@ -76,25 +76,41 @@
             </div>
             <div>
                 <x-input-label for="name_kh" :value="__('Name KH')" /><span class="text-red-500">*</span>
-                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh" wire:model='name_kh'
-                    required autofocus placeholder="Name KH" />
+                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh"
+                    wire:model='name_kh' required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
             <div class="col-span-1">
                 <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Order Index') }}
+                    {{ __('Order Index') }}
                 </label>
-                <x-text-input id="order_index" class="block w-full mt-1" type="number" name="order_index" wire:model='order_index'
-                    required autofocus placeholder="Order Index" />
+                <x-text-input id="order_index" class="block w-full mt-1" type="number" name="order_index"
+                    wire:model='order_index' required autofocus placeholder="Order Index" />
                 <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
             </div>
+
             <div class="col-span-1">
                 <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Link') }}
+                    {{ __('Link') }}
                 </label>
                 <x-text-input id="link" class="block w-full mt-1" type="text" name="link" wire:model='link'
                     required autofocus placeholder="Link or URL" />
                 <x-input-error :messages="$errors->get('link')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="is_show_on_product_detail" :value="__('Show In Product Detail')" />
+                <span class="text-red-500">* </span>
+                <!-- Switch/Toggle -->
+                <label class="flex items-center mt-1 cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" wire:model='is_show_on_product_detail'>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Not Show</span>
+                    <div
+                        class="mx-2 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                    </div>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Show</span>
+                </label>
+                <!-- End Switch/Toggle -->
+                <x-input-error :messages="$errors->get('is_show_on_product_detail')" class="mt-2" />
             </div>
             <!-- End Name -->
 
@@ -172,7 +188,8 @@
                     </div>
                     <div wire:loading wire:target="image" class="text-blue-700">
                         <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                                src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
                     </div>
@@ -195,15 +212,14 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent="save"
-                    wire:target="save"
-                    wire:loading.attr="disabled"
-                    class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+            <button wire:click.prevent="save" wire:target="save" wire:loading.attr="disabled"
+                class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
 
-                    Save
+                Save
             </button>
             <span wire:target="save" wire:loading>
-                <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
             </span>
 
@@ -242,11 +258,12 @@
             document.addEventListener('livewire:updated', event => {
                 console.log('updated'); // Logs 'Livewire component updated' to browser console
                 initFlowbite();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
-
-
     </script>
 
     {{-- <script>

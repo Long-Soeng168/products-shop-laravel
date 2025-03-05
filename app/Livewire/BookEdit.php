@@ -32,6 +32,10 @@ class BookEdit extends Component
 
     public $category_id = null;
     public $sub_category_id = null;
+    public $is_pre_order = null;
+    public $link = null;
+    public $code = null;
+    public $code_sku = null;
 
     public function mount($id)
     {
@@ -51,6 +55,10 @@ class BookEdit extends Component
         $this->short_description = $this->item->short_description;
         $this->discount = $this->item->discount;
         $this->year = $this->item->year;
+        $this->is_pre_order = (bool) $this->item->is_pre_order;
+        $this->link = $this->item->link;
+        $this->code = $this->item->code;
+        $this->code_sku = $this->item->code_sku;
     }
 
 
@@ -89,6 +97,9 @@ class BookEdit extends Component
             'brand_id' => 'nullable',
             'category_id' => 'nullable',
             'sub_category_id' => 'nullable',
+            'is_pre_order' => 'nullable',
+            'link' => 'nullable',
+            'code' => 'nullable',
         ]);
 
         // dd($validated);

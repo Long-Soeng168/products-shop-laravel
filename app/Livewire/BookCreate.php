@@ -24,12 +24,15 @@ class BookCreate extends Component
     public $quantity = 0;
     public $discount = null;
     public $code = null;
+    public $code_sku = null;
     public $year = null;
     public $short_description = null;
     public $description = null;
 
     public $category_id = null;
     public $sub_category_id = null;
+    public $link = null;
+    public $is_pre_order = false;
 
     public function updatedCategory_id()
     {
@@ -68,6 +71,7 @@ class BookCreate extends Component
             'quantity' => 'nullable',
             'discount' => 'nullable',
             'code' => 'nullable',
+            'code_sku' => 'nullable',
             'image' => 'nullable|image|max:2048',
             'year' => 'nullable',
             'short_description' => 'nullable|string',
@@ -75,6 +79,8 @@ class BookCreate extends Component
             'brand_id' => 'nullable',
             'category_id' => 'nullable',
             'sub_category_id' => 'nullable',
+            'is_pre_order' => 'nullable',
+            'link' => 'nullable',
         ]);
 
         // dd($validated);

@@ -6,6 +6,7 @@ use App\Models\Supplier;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\BookCategory as Category;
 
 class SupplierTableData extends Component
 {
@@ -26,22 +27,25 @@ class SupplierTableData extends Component
     #[Url(history: true)]
     public $sortDir = 'DESC';
 
-    public function setFilter($value) {
+    public function setFilter($value)
+    {
         $this->filter = $value;
         $this->resetPage();
     }
 
-    public function setSortBy($newSortBy) {
-        if($this->sortBy == $newSortBy){
+    public function setSortBy($newSortBy)
+    {
+        if ($this->sortBy == $newSortBy) {
             $newSortDir = ($this->sortDir == 'DESC') ? 'ASC' : 'DESC';
             $this->sortDir = $newSortDir;
-        }else{
+        } else {
             $this->sortBy = $newSortBy;
         }
     }
 
     // ResetPage when updated search
-    public function updatedSearch() {
+    public function updatedSearch()
+    {
         $this->resetPage();
     }
 
@@ -53,53 +57,65 @@ class SupplierTableData extends Component
         session()->flash('success', 'Supplier successfully deleted!');
     }
 
-     // ==========Add New Publisher============
-     public $newPublisherName = null;
-     public $newPublisherPhone = null;
-     public $newPublisherGender = null;
+    // ==========Add New Publisher============
+    public $new_name = null;
+    public $new_phone = null;
+    public $new_gender = null;
+    public $new_link = null;
+    public $new_category_id = null;
 
-     public function saveNewPublisher()
-     {
-         try {
-             $validated = $this->validate([
-                 'newPublisherName' => 'required|string|max:255',
-             ]);
+    public function saveNewPublisher()
+    {
+        try {
+            $validated = $this->validate([
+                'new_name' => 'required|string|max:255',
+            ]);
 
-             Supplier::create([
-                 'name' => $this->newPublisherName,
-                 'phone' => $this->newPublisherPhone,
-             ]);
+            Supplier::create([
+                'name' => $this->new_name,
+                'phone' => $this->new_phone,
+                'link' => $this->new_link,
+                'category_id' => $this->new_category_id,
+            ]);
 
-             session()->flash('success', 'Add New Supplier successfully!');
+            session()->flash('success', 'Add New Supplier successfully!');
 
-             $this->reset(['newPublisherName', 'newPublisherGender', 'newPublisherPhone']);
+            $this->reset(['new_name', 'new_gender', 'new_phone']);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
 
-         } catch (\Illuminate\Validation\ValidationException $e) {
-             session()->flash('error', $e->validator->errors()->all());
-         }
-     }
+    public $editId = null;
+    public $name;
+    public $gender;
+    public $phone;
+    public $link;
+    public $category_id;
 
-     public $editId = null;
-     public $name;
-     public $gender;
-     public $phone;
-
-     public function setEdit($id) {
+    public function setEdit($id)
+    {
         $publisher = Supplier::find($id);
         $this->editId = $id;
         $this->name = $publisher->name;
         $this->gender = $publisher->gender;
         $this->phone = $publisher->phone;
-     }
+        $this->link = $publisher->link;
+        $this->category_id = $publisher->category_id;
+    }
 
-     public function cancelUpdatePublisher() {
+    public function cancelUpdatePublisher()
+    {
         $this->editId = null;
         $this->name = null;
         $this->phone = null;
         $this->gender = null;
-     }
+        $this->category_id = null;
+        $this->link = null;
+    }
 
-     public function updatePublisher($id) {
+    public function updatePublisher($id)
+    {
         try {
             $validated = $this->validate([
                 'name' => 'required|string|max:255',
@@ -109,27 +125,30 @@ class SupplierTableData extends Component
             $publisher->update([
                 'name' => $this->name,
                 'phone' => $this->phone,
+                'link' => $this->link,
+                'category_id' => $this->category_id,
             ]);
 
             session()->flash('success', 'Supplier successfully edited!');
 
-            $this->reset(['name', 'gender', 'editId']);
-
+            $this->reset(['name', 'gender', 'editId', 'link', 'category_id']);
         } catch (\Illuminate\Validation\ValidationException $e) {
             session()->flash('error', $e->validator->errors()->all());
         }
-     }
+    }
 
-    public function render(){
+    public function render()
+    {
 
-        $items = Supplier::where(function($query){
-                                $query->where('name', 'LIKE', "%$this->search%");
-                            })
-                            ->orderBy($this->sortBy, $this->sortDir)
-                            ->paginate($this->perPage);
-
+        $items = Supplier::where(function ($query) {
+            $query->where('name', 'LIKE', "%$this->search%");
+        })
+            ->orderBy($this->sortBy, $this->sortDir)
+            ->paginate($this->perPage);
+        $categories = Category::all();
         return view('livewire.supplier-table-data', [
             'items' => $items,
+            'categories' => $categories,
         ]);
     }
 }

@@ -107,7 +107,7 @@
                             <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                         </div>
                     </div>
-                    <div class="grid gap-4 md:grid-cols-2">
+                    <div>
                         <div class="">
                             <x-input-label for="discount" :value="__('Discount')" />
                             <x-text-input wire:model='discount' id="discount" class="block w-full mt-1"
@@ -115,13 +115,19 @@
                                 autocomplete="discount" />
                             <x-input-error :messages="$errors->get('discount')" class="mt-2" />
                         </div>
-                        <div class="">
-                            <x-input-label for="code" :value="__('Code')" />
-                            <x-text-input wire:model='code' id="code" class="block w-full mt-1" type="number"
-                                name="code" placeholder='Example: P00001' :value="old('code')"
-                                autocomplete="code" />
-                            <x-input-error :messages="$errors->get('code')" class="mt-2" />
-                        </div>
+                    </div>
+                    <div class="">
+                        <x-input-label for="code" :value="__('Code (Can use Barcode)')" />
+                        <x-text-input wire:model='code' id="code" class="block w-full mt-1" type="text"
+                            name="code" placeholder='Example: P00001' :value="old('code')" autocomplete="code" />
+                        <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                    </div>
+                    <div class="">
+                        <x-input-label for="code_sku" :value="__('Code SKU (Stock Keeping Unit)')" />
+                        <x-text-input wire:model='code_sku' id="code_sku" class="block w-full mt-1" type="text"
+                            name="code_sku" placeholder='Example: HP-001' :value="old('code_sku')"
+                            autocomplete="code_sku" />
+                        <x-input-error :messages="$errors->get('code_sku')" class="mt-2" />
                     </div>
                     <div class="relative z-0 w-full group">
                         <x-input-label for="year" :value="__('Release Year')" />
@@ -210,6 +216,29 @@
                             <x-input-error :messages="$errors->get('sub_category_id')" class="mt-2" />
                         </div>
                         {{-- End Sub-Category Select --}}
+                    </div>
+                    <div class="col-span-1">
+                        <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                            {{ __('Link') }}
+                        </label>
+                        <x-text-input id="link" class="block w-full mt-1" type="text" name="link"
+                            wire:model='link' required autofocus placeholder="Link or URL" />
+                        <x-input-error :messages="$errors->get('link')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="is_pre_order" :value="__('Is Pre Order')" />
+                        <span class="text-red-500">* </span>
+                        <!-- Switch/Toggle -->
+                        <label class="flex items-center mt-1 cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" wire:model='is_pre_order'>
+                            <span class="text-sm text-gray-400 dark:text-gray-300">No</span>
+                            <div
+                                class="mx-2 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            </div>
+                            <span class="text-sm text-gray-400 dark:text-gray-300">Yes</span>
+                        </label>
+                        <!-- End Switch/Toggle -->
+                        <x-input-error :messages="$errors->get('is_pre_order')" class="mt-2" />
                     </div>
 
                     {{-- Start Image Upload --}}

@@ -374,6 +374,8 @@ class BookTableData extends Component
                 $sub_query->where('title', 'LIKE', "%{$this->search}%")
                     ->orWhere('code', 'LIKE', "%{$this->search}%")
                     ->orWhere('year', 'LIKE', "%{$this->search}%")
+                    ->orWhere('code', 'LIKE', "%{$this->search}%")
+                    ->orWhere('code_sku', 'LIKE', "%{$this->search}%")
                     ->orWhere('short_description', 'LIKE', "%{$this->search}%")
                     ->orWhereHas('brand', function ($q) {
                         $q->where('name', 'LIKE', "%{$this->search}%");
