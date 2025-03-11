@@ -398,7 +398,7 @@
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
 
-                                <div class="pb-1" x-data="{ tooltip: false }">
+                                {{-- <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ 'https://www.scholarkh.com/en/products/' . $item->id }}"
                                         @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -417,7 +417,7 @@
                                         style="display: none;">
                                         View
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 @can('update item')
                                     <div class="pb-1" x-data="{ tooltip: false }">
