@@ -13,6 +13,7 @@ class ContactEdit extends Component
     public $phone;
     public $email;
     public $map;
+    public $link;
     public $address;
 
     public function mount(Contact $contact)
@@ -23,6 +24,7 @@ class ContactEdit extends Component
         $this->phone = $contact->phone;
         $this->email = $contact->email;
         $this->map = $contact->map;
+        $this->link = $contact->link;
         $this->address = $contact->address;
     }
 
@@ -36,6 +38,7 @@ class ContactEdit extends Component
             'email' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'map' => 'nullable|string',
+            'link' => 'nullable|string',
         ]);
 
         // Update the existing Contact record

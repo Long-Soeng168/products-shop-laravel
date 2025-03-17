@@ -76,7 +76,7 @@
             </div>
             <div class="col-span-1">
                 <label for="phone" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Phone') }}
+                    {{ __('Phone') }}
                 </label>
                 <x-text-input id="phone" class="block w-full mt-1" type="text" name="phone" wire:model='phone'
                     required autofocus placeholder="Phone" />
@@ -84,7 +84,7 @@
             </div>
             <div class="col-span-1">
                 <label for="email" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Email') }}
+                    {{ __('Email') }}
                 </label>
                 <x-text-input id="email" class="block w-full mt-1" type="text" name="email" wire:model='email'
                     required autofocus placeholder="Email" />
@@ -92,19 +92,27 @@
             </div>
             <div class="col-span-1">
                 <label for="address" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Address') }}
+                    {{ __('Address') }}
                 </label>
-                <x-text-input id="address" class="block w-full mt-1" type="text" name="address" wire:model='address'
-                    required autofocus placeholder="Address" />
+                <x-text-input id="address" class="block w-full mt-1" type="text" name="address"
+                    wire:model='address' required autofocus placeholder="Address" />
                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
             <div class="col-span-2">
                 <label for="map" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Map') }}
+                    {{ __('Map') }}
                 </label>
-                <x-text-input id="map" class="block w-full mt-1" type="text" name="map" wire:model='map'
-                    required autofocus placeholder="Map" />
+                <x-text-input id="map" class="block w-full mt-1" type="text" name="map"
+                    wire:model='map' required autofocus placeholder="Map" />
                 <x-input-error :messages="$errors->get('map')" class="mt-2" />
+            </div>
+            <div class="col-span-2">
+                <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                    {{ __('link') }}
+                </label>
+                <x-text-input id="link" class="block w-full mt-1" type="text" name="link"
+                    wire:model='link' required autofocus placeholder="link" />
+                <x-input-error :messages="$errors->get('link')" class="mt-2" />
             </div>
             <!-- End Name -->
 
@@ -120,17 +128,16 @@
         </div>
         <div>
             @can('update setting')
-            <button wire:click.prevent="save"
-                    wire:target="save"
-                    wire:loading.attr="disabled"
+                <button wire:click.prevent="save" wire:target="save" wire:loading.attr="disabled"
                     class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
 
                     Save Update
-            </button>
+                </button>
             @endcan
 
             <span wire:target="save" wire:loading>
-                <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
             </span>
 
@@ -169,11 +176,12 @@
             document.addEventListener('livewire:updated', event => {
                 console.log('updated'); // Logs 'Livewire component updated' to browser console
                 initFlowbite();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
-
-
     </script>
 
     {{-- <script>
