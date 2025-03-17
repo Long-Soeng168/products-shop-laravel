@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\About;
+use App\Models\Contact;
+use App\Models\WebsiteInfo;
 
 class AboutController extends Controller
 {
@@ -16,6 +18,16 @@ class AboutController extends Controller
         $about = About::first();
 
         return response()->json($about);
+    }
+    public function webinfo(Request $request)
+    {
+        $about = WebsiteInfo::first();
+        $contact = Contact::first();
+
+        return response()->json([
+            'about' => $about,
+            'contact' => $contact,
+        ]);
     }
 
 
